@@ -94,6 +94,7 @@ https://github.com/GabrielBGB/ControleDeBar.ConsoleApp
 - C# (.NET)
 - Programação Orientada a Objetos
 - Console Application
+- Visual Studio 
 
 ---
 
