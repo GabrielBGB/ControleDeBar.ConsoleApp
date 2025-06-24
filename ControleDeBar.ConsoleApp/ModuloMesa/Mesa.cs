@@ -6,7 +6,7 @@ namespace ControleDeBar.ConsoleApp.ModuloMesa
     {
         public string Numero { get; set; }
         public int QuantidadeLugares { get; set; }
-        public StatusMesa Status { get; set; } // Usando um enum para o status
+        public StatusMesa Status { get; set; } 
 
         public Mesa(string numero, int quantidadeLugares)
         {
@@ -24,8 +24,15 @@ namespace ControleDeBar.ConsoleApp.ModuloMesa
 
         public override string[] Validar()
         {
-            // Implementaremos a validação depois
-            return new string[0];
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(Numero) || !int.TryParse(Numero, out int numeroMesa) || numeroMesa <= 0)
+                erros.Add("O campo \"Número\" é obrigatório, deve ser um número inteiro positivo.");
+
+            if (QuantidadeLugares <= 0)
+                erros.Add("O campo \"Quantidade de Lugares\" deve ser maior que zero.");
+
+            return erros.ToArray();
         }
     }
 

@@ -1,6 +1,6 @@
-﻿// Local: ModuloGarcom/Garcom.cs
-using ControleDeBar.ConsoleApp.Compartilhado;
+﻿using ControleDeBar.ConsoleApp.Compartilhado;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ControleDeBar.ConsoleApp.ModuloGarcom
 {
@@ -26,11 +26,17 @@ namespace ControleDeBar.ConsoleApp.ModuloGarcom
         {
             List<string> erros = new List<string>();
 
-            if (string.IsNullOrEmpty(Nome.Trim()) || Nome.Length < 3)
-                erros.Add("O campo \"nome\" é obrigatório e precisa ter mais de 2 caracteres");
+            if (string.IsNullOrEmpty(Nome) || Nome.Trim().Length < 3 || Nome.Trim().Length > 100)
+                erros.Add("O campo \"Nome\" é obrigatório, deve ter entre 3 e 100 caracteres.");
 
-            if (string.IsNullOrEmpty(Cpf.Trim())) // Validação simples, pode ser melhorada com Regex
+            if (string.IsNullOrEmpty(Cpf.Trim()))
                 erros.Add("O campo \"CPF\" é obrigatório");
+            else
+            {
+                string patternCpf = @"^\d{3}\.\d{3}\.\d{3}\-\d{2}$"; // Exemplo: 123.456.789-00
+                if (!Regex.IsMatch(Cpf, patternCpf))
+                    erros.Add("O CPF deve estar no formato XXX.XXX.XXX-XX.");
+            }
 
             return erros.ToArray();
         }
